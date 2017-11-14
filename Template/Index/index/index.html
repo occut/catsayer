@@ -774,20 +774,20 @@
 
         <div id="contact-form" class="twelve columns">
 
-            <form name="contactForm" id="contactForm" method="post" action="">
+            <form name="contactForm" id="contactForm" method="post" action="" onSubmit="return false">
 
                 <fieldset>
 
                     <div class="row">
 
                         <div class="six columns mob-whole">
-                            <label for="contactFname">First Name <span class="required">*</span></label>
-                            <input name="contactFname" type="text" id="contactFname" placeholder="First Name" value="" />
+                            <label for="contactFname">您的名字 <span class="required">*</span></label>
+                            <input name="contactFname" type="text" id="contactFname" placeholder="您的名字" value="" />
                         </div>
 
                         <div class="six columns mob-whole">
-                            <label for="contactLname">Last Name <span class="required">*</span></label>
-                            <input name="contactLname" type="text" id="contactLname" placeholder="Last Name" value="" />
+                            <label for="contactLname">您的电话 <span class="required">*</span></label>
+                            <input name="contactLname" type="text" id="contactLname" placeholder="您的电话" value="" />
                         </div>
 
                     </div>
@@ -795,30 +795,30 @@
                     <div class="row">
 
                         <div class="six columns mob-whole">
-                            <label for="contactEmail">Email <span class="required">*</span></label>
-                            <input name="contactEmail" type="text" id="contactEmail" placeholder="Email" value="" />
+                            <label for="contactEmail">您的邮箱 <span class="required">*</span></label>
+                            <input name="contactEmail" type="text" id="contactEmail" placeholder="您的邮箱" value="" />
                         </div>
 
-                        <div class="six columns mob-whole">
-                            <label for="contactSubject">Subject</label>
-                            <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject"  value="" />
-                        </div>
+                        <!--<div class="six columns mob-whole">-->
+                            <!--<label for="contactSubject">您的问题和宝贵的意见</label>-->
+                            <!--<input name="contactSubject" type="text" id="contactSubject" placeholder="请留下您的问题和宝贵的意见"  value="" />-->
+                        <!--</div>-->
 
                     </div>
 
                     <div class="row">
 
                         <div class="twelve columns">
-                            <label  for="contactMessage">Message <span class="required">*</span></label>
-                            <textarea name="contactMessage"  id="contactMessage" placeholder="Your Message" rows="10" cols="50" ></textarea>
+                            <label  for="contactMessage">您的问题和宝贵的意见 <span class="required">*</span></label>
+                            <textarea name="contactMessage"  id="contactMessage" placeholder="请留下您的问题和宝贵的意见" rows="10" cols="50" ></textarea>
                         </div>
 
                     </div>
 
                     <div>
-                        <button class="submit full-width">Send Message</button>
+                        <button class="submit full-width">提交</button>
                         <div id="image-loader">
-                            <img src="images/loader.gif" alt="" />
+                            <img src="__INDEX__/images/loader.gif" alt="" />
                         </div>
                     </div>
 
@@ -917,7 +917,23 @@
 <script src="__INDEX__/js/backstretch.js"></script>
 <script src="__INDEX__/js/waypoints.js"></script>
 <script src="__INDEX__/js/main.js"></script>
+<script>
+     $('form#contactForm button.submit').on('click', function() {
 
+         var data = $('form').serializeArray();
+//         var json = JSON.stringify(data);
+         console.log(data);
+         $.ajax({
+             type: 'post',
+             url: "{:url('/index.php/index/index/message')}",
+             data: data,
+             success: function(data) {
+                 // your code
+                 console.log(data);
+             }
+         });
+     })
+</script>
 </body>
 
 </html>
