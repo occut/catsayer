@@ -8,8 +8,6 @@ class Index extends Controller
         return $this->fetch('/Index/index/index');
     }
     public function message(){
-//var_dump(input());
-//die;
-        return 1;
+
     }
 }
