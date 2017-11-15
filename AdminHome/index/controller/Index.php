@@ -18,9 +18,7 @@ class Index extends supcontroller
         if(empty($Adminstrator)) return 1;
         if($Adminstrator['ban'] != '1') return 2;
         if(admin_md5($data['pas']) != $Adminstrator['password']) return 3;
-        dump($Adminstrator);
-
-        return $this->fetch('/Admin/login/index');
+		return $this->fetch('/Admin/Home/index');
     }
 
 }
