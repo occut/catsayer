@@ -27,6 +27,7 @@
     <form class="form-signin" action="{:url('index/create')}" method="post">
         <h2 class="form-signin-heading">catsayer.com</h2>
         <div class="login-wrap">
+            <p>{:session('msg')}</p>
             <input type="text" name="name" class="form-control" placeholder="用户名" autofocus>
             <input type="password" name="pas" class="form-control" placeholder="密码">
             <label class="checkbox">
