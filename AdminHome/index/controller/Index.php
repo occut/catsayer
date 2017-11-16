@@ -1,7 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\Adminstrator;
+use app\index\Model\Adminstrator;
 
 class Index extends supcontroller
 {
@@ -18,9 +18,7 @@ class Index extends supcontroller
         if(empty($Adminstrator)) return 1;
         if($Adminstrator['ban'] != '1') return 2;
         if(admin_md5($data['pas']) != $Adminstrator['password']) return 3;
-        dump($Adminstrator);
-
-        return $this->fetch('/Admin/login/index');
+        return $this->fetch('/Admin/Home/index');
     }
 
 }
