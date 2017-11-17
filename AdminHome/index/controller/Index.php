@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use app\index\Model\Adminstrator;
+use think\cache\driver\Memcached;
 use think\Request;
 use think\Session;
 use think\Validate;
@@ -31,6 +32,7 @@ class Index extends supcontroller
             'age.between'  => '密码只能在1-16之间',
         ];
         //实例化验证类
+
         $validate = new Validate($rules,$msg);
         //判断数据是否正确
         if(!$validate->check($data)){

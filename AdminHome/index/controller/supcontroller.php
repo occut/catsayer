@@ -13,6 +13,7 @@ class supcontroller extends Controller
         //父类初始化
         parent::__construct();
         //其他配置加载
+        $this->memcached = new \think\Cache\Driver\Memcache;
 
     }
 

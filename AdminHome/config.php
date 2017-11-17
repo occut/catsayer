@@ -240,4 +240,7 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    'DATA_CACHE_TYPE' => 'Memcache',
+    'MEMCACHED_HOST' => '127.0.0.1',
+    'MEMCACHED_PORT' => '11211',
 ];
