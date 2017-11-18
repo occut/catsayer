@@ -31,7 +31,7 @@ class supcontroller extends Controller
                     $v = trim($v);
                 }
             });
-
+        $data['updated_at'] = date("Y-m-d H:i:s");
         return $data;
     }
 }
