@@ -44,7 +44,9 @@ class Node extends supcontroller
      * 权限添加数据
      */
     function add(){
+        //接收数据
         $data = $this->data();
+        //验证
         $rule = [
             ["nodename", "require|unique:Node", "请填写权限名称|权限名称已经存在"],
             ["auth", "require", "请填写模块名称"],
@@ -55,7 +57,9 @@ class Node extends supcontroller
             return['msg'=>$validate->getError(),'error'=>false];
         }
         $data['created_at'] = date("Y-m-d H:i:s");
+        //添加数据
         $privilege = \app\index\model\Node::create($data);
+        //返回消息
         if (!$privilege) {
             return['msg'=>"添加失败",'error'=>false];
         }
