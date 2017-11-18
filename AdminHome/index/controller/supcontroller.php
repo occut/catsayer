@@ -2,6 +2,8 @@
 namespace app\index\controller;
 
 use think\Controller;
+use think\Request;
+
 
 class supcontroller extends Controller
 {
@@ -18,9 +20,9 @@ class supcontroller extends Controller
     }
 
      function data(){
-        static $data = null;
-        if(is_null($data)) {
-            $data = input();
+
+         $request =  Request();
+         $data =$request->param();
             if(isset($data['_token']))                      unset($data['_token']);
             if(isset($data['_method']))                     unset($data['_method']);
             if(isset($data['file']) && $data['file'] == '') unset($data['file']);
@@ -29,7 +31,7 @@ class supcontroller extends Controller
                     $v = trim($v);
                 }
             });
-        }
+        $data['updated_at'] = date("Y-m-d H:i:s");
         return $data;
     }
 }

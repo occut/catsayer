@@ -135,3 +135,48 @@ var Script = function () {
 
 
 }();
+
+$(".add").click(function (){
+    var url = $(this).attr("data_url");
+    $.ajax( {
+        url: url,
+        type: "GET",
+        success: function(data){
+            $(".modal-content").html(data);
+        }
+    });
+});
+function addsubmit(){
+    var url = $('.form').attr("action");
+    var data = $('.form').serialize();
+    $.ajax( {
+        url: url,
+        type: "post",
+        data:data,
+        async: false,
+        success: function(data){
+            var datas = '<div id="gritter-notice-wrapper">' +
+                '<div id="gritter-item-8" class="gritter-item-wrapper " style="">' +
+                '<div class="gritter-top"></div>' +
+                '<div class="gritter-item">' +
+                '<div class="gritter-close"></div>' +
+                '<div class="gritter-without-image">' +
+                '<span class="gritter-title">新消息!</span>' +
+                '<p>'+data.msg+'</p>' +
+                '</div><div style="clear:both">' +
+                '</div>' +
+                '</div>' +
+                '<div class="gritter-bottom">' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            $(".close").trigger('click');
+            $(".row").append(datas);
+            if(!data.error){
+                setTimeout("location.reload()",2000);
+            }
+
+        }
+    });
+
+}
