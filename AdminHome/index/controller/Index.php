@@ -19,7 +19,7 @@ class Index extends supcontroller
      */
     public function create(){
         //接收数据
-   
+
         $data = $this->data();
         //验证规则
         $rules = [
