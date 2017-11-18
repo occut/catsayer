@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use app\index\Model\Adminstrator;
 use think\cache\driver\Memcached;
+
 use think\Request;
 use think\Session;
 use think\Validate;
@@ -18,6 +19,7 @@ class Index extends supcontroller
      */
     public function create(){
         //接收数据
+   
         $data = $this->data();
         //验证规则
         $rules = [

@@ -17,3 +17,13 @@ function admin_md5($password) {
     $result = substr((md5(md5($password, true))), 1, 20);
     return $result;
 }
+
+if (!function_exists('input')) {
+    function input($key = null, $value = '')
+    {
+        if (is_null($key)) {
+            return request()->all();
+        }
+        return request()->get($key, $value);
+    }
+}

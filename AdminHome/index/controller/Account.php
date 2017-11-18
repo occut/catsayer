@@ -20,10 +20,10 @@ class Account extends supcontroller
      */
     public function index()
     {
-        $account = $this->request->post("account");
+        $account = $this->request->get("username");
         $where = [];
         if (!empty($account)) {
-            $where["account"] = $account;
+            $where['username|ip|updated_at'] = ['like',"%$account%"];
         }
         $data = \app\index\model\Adminstrator::where($where)->paginate(10);
         $this->assign([
