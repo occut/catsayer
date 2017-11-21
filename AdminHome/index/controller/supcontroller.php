@@ -16,6 +16,7 @@ class supcontroller extends Controller
         parent::__construct();
         //其他配置加载
         $this->memcached = new \think\Cache\Driver\Memcache;
+        $this->request =  Request();
 
     }
 

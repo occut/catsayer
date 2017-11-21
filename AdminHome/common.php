@@ -18,8 +18,8 @@ function admin_md5($password) {
     return $result;
 }
 
-if (!function_exists('input')) {
-    function input($key = null, $value = '')
+if (!function_exists('supinput')) {
+    function supinput($key = null, $value = '')
     {
         if (is_null($key)) {
             return request()->all();

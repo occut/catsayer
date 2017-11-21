@@ -26,6 +26,7 @@
                     </div>
                 </div>
             </form>
+
                 <a href="#myModal-1" data_url="{:url('Node/addview')}" class="add"  data-toggle="modal" > <button type="button" class="btn btn-primary "><i class="fa fa-plus-square-o"></i>
                         添加
                 </button> </a>
@@ -60,9 +61,10 @@
 
                     </span></td>
                     <td>
-                        <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                        <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                        <a href="#myModal-1" data_url="{:url('Node/addview',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-plus-square-o"></i></a>
+                        <a href="#myModal-1" data_url="{:url('Node/saveView',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-pencil"></i></a>
+                        <a href="#myModal9" data_url="{:url('Node/saveView',['id'=>$v.node_id])}" class=" btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-trash-o"></i></a>
+
                     </td>
                 </tr>
                 <?php endforeach;?>
@@ -83,6 +85,30 @@
             </ul>
         </div>
     </div>
+</div>
+
+<div class="panel-body">
+    <!-- vertical center top side Modal start -->
+    <div class="modal fade modal-dialog-center top-modal-with-space" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">确认</h4>
+                    </div>
+                    <div class="modal-body">
+                        确定要删除么？
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                        <button class="btn btn-warning" type="button"> Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- vertical center top side Modal end -->
 </div>
 {/block}
 {block name="js"}
