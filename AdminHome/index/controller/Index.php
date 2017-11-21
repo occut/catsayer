@@ -28,9 +28,9 @@ class Index extends supcontroller
         ];
         //验证信息
         $msg = [
-           'name.require' => '名称必须',
+           'name.require' => '名称不能为空',
             'name.between'     => '名称只能在6-16之间',
-            'pas.require'   => '密码必须',
+            'pas.require'   => '密码不能为空',
             'age.between'  => '密码只能在1-16之间',
         ];
         //实例化验证类
@@ -45,17 +45,17 @@ class Index extends supcontroller
         $Adminstrator =  Adminstrator::SelectAdminUser($data['name']);
         //判断用户是否存在
         if(empty($Adminstrator)){
-            Session::flash('msg','登录失败');
+            Session::flash('msg','用户不存在，请输入正确的用户名');
             return $this->redirect('index/index');
         }
         //判断用户用户是否禁用
         if($Adminstrator['ban'] != '1'){
-            Session::flash('msg','登录失败');
+            Session::flash('msg','用户被禁用，请联系管理员');
             return $this->redirect('index/index');
         }
         //判断用户密码是否正确
         if(admin_md5($data['pas']) != $Adminstrator['password']){
-            Session::flash('msg','登录失败');
+            Session::flash('msg','密码错误');
             return $this->redirect('index/index');
         }
         //登录成功写入session
