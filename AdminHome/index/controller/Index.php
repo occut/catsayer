@@ -12,6 +12,13 @@ class Index extends supcontroller
 {
     public function index()
     {
+
+//        $module=mb_strtolower($this->request->module());
+//        $controller=mb_strtolower($this->request->controller());
+//        $action=mb_strtolower($this->request->action());
+//        $now=$module.'/'.$controller.'@'.$action;
+//        dump($now);die;
+
         return $this->fetch('/Admin/login/index');
     }
     /*

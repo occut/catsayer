@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+    <h4 class="modal-title">确认删除么？</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form" role="form" action="{:url('Role/dell')}" method="post">
+        <input type="hidden" name="id" value="{$data}">
+        <div class="form-group" >
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" onclick="addsubmit();return false;" class="btn btn-default submit">确认</button>
+            </div>
+        </div>
+    </form>
+</div>

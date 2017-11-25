@@ -10,7 +10,6 @@ class Node extends supcontroller
 {
     /**
      * 首页html展示
-     * @return mixed
      */
     public function index()
     {
@@ -28,7 +27,6 @@ class Node extends supcontroller
     }
     /**
      * 权限添加页面
-     * @return \think\response\View
      */
     public function addview()
     {
