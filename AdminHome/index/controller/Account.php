@@ -98,7 +98,7 @@ class Account extends supcontroller
             $this->assign([
                 "data" => $id,
             ]);
-            return $this->fetch('/Admin/dell/dell');
+            return $this->fetch('/Admin/Account/delAdmin');
         }else{
             $id = input('id');
             if (!\app\index\model\Adminstrator::destroy($id)) {
