@@ -128,12 +128,6 @@ var Script = function () {
             }, 2000)
         })
     }
-
-
-
-
-
-
 }();
 
 $(".add").click(function (){
