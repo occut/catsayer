@@ -17,7 +17,7 @@ class Node extends supcontroller
         $account = $this->request->get("username");
         $where = [];
         if (!empty($account)) {
-            $where['username|ip|updated_at'] = ['like',"%$account%"];
+            $where['nodename|auth|url'] = ['like',"%$account%"];
         }
         $data = \app\index\model\Node::where($where)->paginate(10);
         $this->assign([
@@ -101,5 +101,23 @@ class Node extends supcontroller
             return['msg'=>"更新失败",'error'=>false];
         }
         return['msg'=>"更新成功",'error'=>false];
+    }
+    /*
+     * 删除
+     */
+    public function dell(){
+        if(request()->isGet()){
+            $id = input('id');
+            $this->assign([
+                "data" => $id,
+            ]);
+            return $this->fetch('/Admin/dell/dell');
+        }else{
+            $id = input('id');
+            if (!\app\index\model\Node::destroy($id)) {
+                return['msg'=>"删除失败",'error'=>false];
+            }
+            return['msg'=>"删除成功",'error'=>false];
+        }
     }
 }

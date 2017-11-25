@@ -14,12 +14,11 @@
                 管理员
             </header>
             <div class="panel-body">
-            <form class="form-horizontal search-result" action="{:url('Account/index')}">
+            <form class="form-horizontal search-result" action="{:url('Node/index')}">
                 <div class="form-group">
                     <label class="col-lg-1 col-sm-1 control-label">Search</label>
                     <div class="col-lg-8 col-sm-8">
                         <input type="text" name="username" value="{:input('username')}" class="form-control input-xxlarge">
-                        
                     </div>
                     <div class="col-lg-2">
                         <button class="btn " type="submit">搜索</button>
@@ -63,7 +62,7 @@
                     <td>
                         <a href="#myModal-1" data_url="{:url('Node/addview',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-plus-square-o"></i></a>
                         <a href="#myModal-1" data_url="{:url('Node/saveView',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-pencil"></i></a>
-                        <a href="#myModal9" data_url="{:url('Node/saveView',['id'=>$v.node_id])}" class=" btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-trash-o"></i></a>
+                        <a href="#myModal-1" data_url="{:url('Node/dell',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-trash-o"></i></a>
 
                     </td>
                 </tr>
@@ -87,29 +86,6 @@
     </div>
 </div>
 
-<div class="panel-body">
-    <!-- vertical center top side Modal start -->
-    <div class="modal fade modal-dialog-center top-modal-with-space" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">确认</h4>
-                    </div>
-                    <div class="modal-body">
-                        确定要删除么？
-                    </div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                        <button class="btn btn-warning" type="button"> Confirm</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- vertical center top side Modal end -->
-</div>
 {/block}
 {block name="js"}
 
