@@ -18,9 +18,11 @@ class Node extends supcontroller
         if (!empty($account)) {
             $where['nodename|auth|url'] = ['like',"%$account%"];
         }
-        $data = \app\index\model\Node::where($where)->paginate(10);
+        $data = \app\index\model\Node::where($where)->select()->toArray();
+        $result = child($data,0,'node_id','pid');
+//        dump($result);die;
         $this->assign([
-            "data" => $data,
+            "data" => $result,
         ]);
         return $this->fetch('/Admin/Node/index');
 
@@ -70,6 +72,7 @@ class Node extends supcontroller
         $id = input('id');
         $data['node_id'] = $id;
         $privilege = \app\index\model\Node::get($data);
+
         $this->assign([
             "data" => $privilege,
         ]);

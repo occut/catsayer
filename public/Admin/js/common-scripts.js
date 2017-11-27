@@ -173,6 +173,10 @@ function addsubmit(){
             $(".close").trigger('click');
             $(".row").append(datas);
             if(!data.error){
+                if(data.url!=''){
+                    url = data.url;
+                    setTimeout(self.location.href=url,2000);
+                }
                 setTimeout("location.reload()",2000);
             }
 

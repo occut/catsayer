@@ -52,7 +52,7 @@ class Role extends supcontroller
             return['msg'=>$validate->getError(),'error'=>false];
         }
         $data['created_at'] = date("Y-m-d H:i:s");
-        //添加数据
+        //添加数据role_nodes
         $privilege = \app\index\model\Roles::create($data);
         //返回消息
         if (!$privilege) {
@@ -104,15 +104,61 @@ class Role extends supcontroller
             $this->assign([
                 "data" => $id,
             ]);
-
             return $this->fetch('/Admin/Role/dell');
         }else{
             $id = input('id');
-
             if (!\app\index\model\Roles::destroy($id)) {
                 return['msg'=>"删除失败",'error'=>false];
             }
             return['msg'=>"删除成功",'error'=>false];
+        }
+    }
+    /*
+     * 编辑权值
+     */
+    public function weight(){
+        if(request()->isGet()) {
+            $id = input('id');
+            $a['role_id'] = $id;
+            $ids = \app\index\model\RoleNodes::where($a)->select()->toArray();
+            $arr = [];
+            foreach ($ids as $k=>$v){
+                $arr[] = $v['node_id'];
+            }
+            $data = \app\index\model\Node::select()->toArray();
+            $array = [];
+            foreach ($data as $v=>$k){
+                $array[] = [
+                    'node_id' => $k['node_id'],
+                    'pid' => $k['pid'],
+                    'name' => $k['nodename'],
+                    'auth' => $k['auth'],
+                    'open' => in_array($k['node_id'],$arr) ?true:'',
+                    'checked' => in_array($k['node_id'],$arr) ?true:'',
+                ];
+            }
+            $this->assign([
+                 "result" => json_encode($array),
+                 "nodeIds" => $id,
+                 "id" => $id,
+            ]);
+            return $this->fetch('/Admin/Role/weight');
+        }else{
+            $id = input('id');
+            $nod = input('node_id',0);
+            if($nod != 0){
+                $a['role_id'] = $id;
+                \app\index\model\RoleNodes::destroy($a);
+                $nodeIds = filterId($nod);
+                array_map(function($node_id) use($id) {
+                    $data['role_id']    = $id;
+                    $data['node_id']    = $node_id;
+                    $data['created_at'] = date("Y-m-d H:i:s");
+                    $data['updated_at'] = date("Y-m-d H:i:s");
+                    \app\index\model\RoleNodes::create($data);
+                },$nodeIds);
+            }
+            return['msg'=>"修改成功",'error'=>false,'url'=>url('Role/index')];
         }
     }
 }

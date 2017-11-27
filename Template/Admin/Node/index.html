@@ -2,6 +2,8 @@
 {block name="css"}
 <link rel="stylesheet" type="text/css" href="__admin__assets/fuelux/css/tree-style.css" />
 <link rel="stylesheet" type="text/css" href="__admin__assets/gritter/css/jquery.gritter.css" />
+<link rel="stylesheet" type="text/css" href="__admin__common/treeTable/jquery.treetable.theme.default.css">
+<link rel="stylesheet" type="text/css" href="__admin__common/treeTable/jquery.treetable.css">
 {/block}
 
 {block name="mail-box"}
@@ -38,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-advance table-hover">
+            <table class="table table-striped table-advance table-hover treetable" id="nodetree">
                 <thead>
                 <tr>
                     <th><i class="fa fa-bullhorn"></i> 节点名</th>
@@ -50,24 +52,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($data as $k=>$v):?>
-                <tr>
-                    <td><a href="#">{$v.nodename}</a></td>
-                    <td class="hidden-phone">{$v.url}</td>
-                    <td>{$v.auth}</td>
-                    <td>{$v.sortid}</td>
-                    <td><span class="label label-info label-mini"><?php echo $v['nav'] == 1?'显示':'隐藏' ?>
 
-                    </span></td>
-                    <td>
-                        <a href="#myModal-1" data_url="{:url('Node/addview',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-plus-square-o"></i></a>
-                        <a href="#myModal-1" data_url="{:url('Node/saveView',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-pencil"></i></a>
-                        <a href="#myModal-1" data_url="{:url('Node/dell',['id'=>$v.node_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-trash-o"></i></a>
-
-                    </td>
-                </tr>
-                <?php endforeach;?>
-
+                <?php
+                    $tmp = '';
+                    treeMap($data,function($v) use(&$tmp) {
+                        $tmp .= '<tr class="cen" data-tt-id="'.$v['node_id'].'" data-tt-parent-id="'.$v['pid'].'">';
+                        $checkbox = '';
+                        $tmp .= '<td id="sp-'.$v['node_id'].'" align="left"><span class="'.(!empty($v['child']) ? 'folder' : 'file').'">'.$v['nodename'].'</span>'.$checkbox.'</td>';
+                        $tmp .= '<td class="hidden-phone">'.$v['url'].'</td>';
+                        $tmp .= '<td >'.$v['auth'].'</td>';
+                        $tmp .= '<td >'.$v['sortid'].'</td>';
+                        $tmp .= '<td class=" btn btn-primary btn-xs">'.($v["nav"] == 1?"显示":"隐藏").'</td>';
+                        $tmp .= '<td >';
+                            $tmp .= '<a style="margin: 0 2px" href="#myModal-1" data_url="'.(url("Node/addview",["id"=>$v["node_id"]])).'" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-plus-square-o"></i></a>';
+                            $tmp .= '<a style="margin: 0 2px" href="#myModal-1" data_url="'.(url("Node/saveView",["id"=>$v["node_id"]])).'" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-pencil"></i></a>';
+                            $tmp .= '<a style="margin: 0 2px" href="#myModal-1" data_url="'.(url("Node/dell",["id"=>$v["node_id"]])).'" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-trash-o"></i></a>';
+                        $tmp .= '</td>';
+                            });
+                        echo $tmp;
+                ?>
                 </tbody>
             </table>
 
@@ -88,7 +91,29 @@
 
 {/block}
 {block name="js"}
+<script type="text/javascript" src="__admin__common/treeTable/jquery.treetable.js"></script>
+<script type="text/javascript">
+    $(function(){
+        /**
+         * 初始化树形表格
+         */
+        $("#roletree").treetable({expandable: true});
+        /**
+         * 初始化树形表格 并展开节点到二级
+         */
+        $("#nodetree").treetable({expandable: true}).find('tr').each(function (i) {
+            var o = $(this)
+            if(o.attr('data-tt-parent-id') == 0 && o.siblings("[data-tt-parent-id='"+o.attr('data-tt-id')+"']").hasClass('leaf') == false) {
+                $("#nodetree").treetable("expandNode", o.attr('data-tt-id'));
+            }
+        });
+        $("#close").click(function () {
+            $(this).parents(".alert-success").hide();
+        });
+    });
 
+
+</script>
 {/block}
 
 

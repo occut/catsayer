@@ -42,7 +42,7 @@
                 <thead>
                 <tr>
                     <th><i class="fa fa-bullhorn"></i> 角色名</th>
-
+                    <th><i class="fa fa-bullhorn"></i> 权值</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -50,7 +50,7 @@
                 <?php foreach($data as $k=>$v):?>
                 <tr>
                     <td><a href="#">{$v.rolename}</a></td>
-
+                    <td><a href="{:url('Role/weight',['id'=>$v.role_id])}">编辑</a></td>
                     <td>
                         <a href="#myModal-1" data_url="{:url('Role/addview',['id'=>$v.role_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-plus-square-o"></i></a>
                         <a href="#myModal-1" data_url="{:url('Role/saveView',['id'=>$v.role_id])}" class="add btn btn-primary btn-xs" data-toggle="modal" ><i class="fa fa-pencil"></i></a>
