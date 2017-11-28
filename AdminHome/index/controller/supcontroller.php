@@ -35,14 +35,13 @@ class supcontroller extends Controller
         $action=mb_strtolower($this->request->action());
         $now=$module.'/'.$controller.'@'.$action;
         //如果是首页相关的模块是允许查看的
-        if(($module=="index") && ($controller=="index")){
+        if(($module=="index") && ($controller=="home")){
             return;
         }
-//            dump($pri);
         //权限判断 无权限无法操作
-        if($pri!="*" && !in_array($now,$pri)){
+
+        if(!in_array($now,$pri)){
             exit($this->permissionDeny());
-//            dump($now);
         }
     }
     /*

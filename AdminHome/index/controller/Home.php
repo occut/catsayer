@@ -25,6 +25,8 @@ class Home extends supcontroller
             }
             $this->memcached->set('pri', $array);
 //        }
+//        $this->memcached->clear();
+
         return $this->fetch('/Admin/Home/index');
     }
 
