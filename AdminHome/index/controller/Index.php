@@ -4,11 +4,12 @@ namespace app\index\controller;
 use app\index\Model\Adminstrator;
 use think\cache\driver\Memcached;
 
+use think\Controller;
 use think\Request;
 use think\Session;
 use think\Validate;
 
-class Index extends supcontroller
+class Index extends Controller
 {
     public function index()
     {

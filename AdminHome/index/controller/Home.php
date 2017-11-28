@@ -11,7 +11,7 @@ class Home extends supcontroller
 {
     public function index()
     {
-        if(!$this->memcached->get('pri')){
+//        if(!$this->memcached->get('pri')){
             $user_id = Session::get('account')['id'];
             $whereUserRoles['user_id'] = $user_id;
             $user = \app\index\model\UserRoles::get($whereUserRoles)->toArray();
@@ -24,7 +24,7 @@ class Home extends supcontroller
                 $array[] = $privilege['auth'];
             }
             $this->memcached->set('pri', $array);
-        }
+//        }
         return $this->fetch('/Admin/Home/index');
     }
 

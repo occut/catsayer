@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\Request;
+use think\Session;
 
 
 class supcontroller extends Controller
@@ -14,6 +15,9 @@ class supcontroller extends Controller
     {
         //父类初始化
         parent::__construct();
+        if(!Session::get('account')['id']){
+            return $this->redirect('index/index');
+        }
         //其他配置加载
         $this->memcached = new \think\Cache\Driver\Memcache;
         $this->request =  Request();
@@ -34,9 +38,11 @@ class supcontroller extends Controller
         if(($module=="index") && ($controller=="index")){
             return;
         }
+//            dump($pri);
         //权限判断 无权限无法操作
         if($pri!="*" && !in_array($now,$pri)){
             exit($this->permissionDeny());
+//            dump($now);
         }
     }
     /*
@@ -45,21 +51,5 @@ class supcontroller extends Controller
     function permissionDeny(){
         return $this->fetch("common/errord");
     }
-    /*
-     * 处理数据
-     */
-     function data(){
-         $request =  Request();
-         $data =$request->param();
-            if(isset($data['_token']))                      unset($data['_token']);
-            if(isset($data['_method']))                     unset($data['_method']);
-            if(isset($data['file']) && $data['file'] == '') unset($data['file']);
-            array_walk($data, function(&$v, $k) {
-                if(!is_array($v) && !is_object($v)) {
-                    $v = trim($v);
-                }
-            });
-        $data['updated_at'] = date("Y-m-d H:i:s");
-        return $data;
-    }
+
 }

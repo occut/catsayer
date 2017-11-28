@@ -86,7 +86,7 @@ class Node extends supcontroller
         $data = $this->data();
         //验证
         $rule = [
-            ["nodename", "require|unique:Node", "请填写权限名称|权限名称已经存在"],
+            ["nodename", "require", "请填写权限名称|权限名称已经存在"],
             ["auth", "require", "请填写模块名称"],
             ["url", "require", "请填写控制器名称"],
         ];
