@@ -142,7 +142,9 @@ $(".add").click(function (){
 });
 function addsubmit(){
     var url = $('.form').attr("action");
+
     var data = $('.form').serialize();
+
     $.ajax( {
         url: url,
         type: "post",
@@ -166,12 +168,14 @@ function addsubmit(){
                 '</div>';
             $(".close").trigger('click');
             $(".row").append(datas);
-            if(!data.error){
-                if(data.url!=''){
-                    url = data.url;
-                    setTimeout(self.location.href=url,2000);
+            if(data.url){
+                url = data.url;
+                setTimeout(self.location.href=url,4000);
+            }else{
+                if(!data.error){
+                    setTimeout("location.reload()",2000);
                 }
-                setTimeout("location.reload()",2000);
+
             }
 
         }

@@ -27,7 +27,9 @@ class Account extends supcontroller
 
     }
 
-
+    /*
+     * 添加页面
+     */
     public function addAdmin(){
         return view("/Admin/Account/addAdmin");
     }
@@ -57,7 +59,6 @@ class Account extends supcontroller
         return['msg'=>"添加成功",'error'=>false];
     }
 
-
     public function editAdmin(){
         $id = input('id');
         $data['user_id'] = $id;
@@ -74,7 +75,6 @@ class Account extends supcontroller
         //验证
         $rule = [
             ["username", "require|unique:adminstrator", "请填写用户名|用户名已经存在"],
-            ["password", "require", "请填写密码"],
             ["phone", "require|max:11|/^1[3-8]{1}[0-9]{9}$/", "请填写手机号|格式错误|格式错误"],
         ];
         $validate = new Validate($rule);
@@ -82,7 +82,7 @@ class Account extends supcontroller
             return['msg'=>$validate->getError(),'error'=>false];
         }
         $data['created_at'] = date("Y-m-d H:i:s");
-        $data['password'] =admin_md5($data['password']);
+        if(!empty($data['password'])) $data['password'] =admin_md5($data['password']);
         //添加数据
         $privilege = \app\index\model\Adminstrator::update($data);
         //返回消息
@@ -105,6 +105,34 @@ class Account extends supcontroller
                 return['msg'=>"删除失败",'error'=>false];
             }
             return['msg'=>"删除成功",'error'=>false];
+        }
+    }
+    /*
+     * 权值页面
+     */
+    public function weight(){
+        if(request()->isGet()) {
+            $id = input('id');
+            $a['user_id'] = $id;
+            $user = \app\index\model\UserRoles::get($a);
+            $data = \app\index\model\Roles::select()->toArray();
+            $this->assign([
+                "id"   => $id,
+                "user"   => $user,
+                "data" => $data,
+            ]);
+            return view("/Admin/Account/weight");
+        }else{
+           $data = $this->data();
+           $data['created_at'] = date("Y-m-d H:i:s");
+           $a['user_id'] = $data['user_id'];
+            \app\index\model\UserRoles::destroy($a);
+            $result = \app\index\model\UserRoles::create($data );
+            //返回消息
+            if (!$result) {
+                return['msg'=>"添加失败",'error'=>false];
+            }
+            return['msg'=>"添加成功",'error'=>false];
         }
     }
 }

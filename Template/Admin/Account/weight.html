@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+    <h4 class="modal-title">角色选择</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form" role="form" action="{:url('Account/weight')}" method="post">
+        <div class="form-group">
+            <label  class="col-lg-2 col-sm-2 control-label">用户名：</label>
+            <div class="col-lg-10">
+                <input type="hidden" name="user_id" value="{$id}">
+                <select class="form-control m-bot15" name="role_id">
+                    <?php foreach($data as $k=>$v):?>
+                        <option value="{$v.role_id}" <?php if($user['role_id'] == $v['role_id']) echo 'selected'; ?>>{$v.rolename}</option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+
+                <button type="submit" onclick="addsubmit();return false;" class="btn btn-default submit">提交</button>
+            </div>
+        </div>
+    </form>
+
+</div>
